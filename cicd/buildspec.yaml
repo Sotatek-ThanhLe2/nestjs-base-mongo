@@ -1,0 +1,54 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+    commands:
+      - n 16.14.2
+
+  pre_build:
+    commands:
+      - echo Prebuild command
+      - node -v
+      - npm -v
+      - npm install --global yarn
+      - yarn
+      - echo Installed!
+      - echo IMAGE_REPO_NAME $IMAGE_REPO_NAME
+      - echo AWS_ACCOUNT_ID $AWS_ACCOUNT_ID
+      - echo AWS_DEFAULT_REGION $AWS_DEFAULT_REGION
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+
+  build:
+    commands:
+      - echo Start build ...
+
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-8)
+      - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
+      - echo COMMIT_HASH $COMMIT_HASH
+      - echo Build started on `date`
+      - echo Building the Docker image...
+
+      - docker build -t $REPOSITORY_URI:latest -f DockerfileProd .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$COMMIT_HASH
+      - echo Build completed on `date`
+
+      - echo Pushing the Docker image...
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$COMMIT_HASH
+
+      - printf '[{"imageUri":"%s", "name":"%s"}]' $REPOSITORY_URI:$COMMIT_HASH $BACKEND_CONTAINER_NAME > backend_imagedefinitions.json
+      - printf '[{"imageUri":"%s", "name":"%s"}]' $REPOSITORY_URI:$COMMIT_HASH $CRONJOB_CONTAINER_NAME > cronjob_imagedefinitions.json
+
+  post_build:
+    commands:
+      - echo Post build done
+    finally:
+      - echo Post build finally
+
+artifacts:
+  files:
+    - backend_imagedefinitions.json
+    - cronjob_imagedefinitions.json

@@ -1,0 +1,35 @@
+app:
+  node_env: NODE_ENV
+  name: APP_NAME
+  port: APP_PORT
+  prefix: APP_PREFIX
+  password_secret: PASSWORD_SECRET
+  salt_round: SALT_ROUND
+  jwt_access_token_secret: JWT_ACCESS_TOKEN_SECRET
+  jwt_access_token_expiration_time: JWT_ACCESS_TOKEN_EXPIRATION_TIME
+  jwt_refresh_token_secret: JWT_REFRESH_TOKEN_SECRET
+  jwt_refresh_token_expiration_time: JWT_REFRESH_TOKEN_EXPIRATION_TIME
+  jwt_verify_email_token_secret: JWT_VERIFY_EMAIL_TOKEN_SECRET
+  jwt_verify_email_token_expiration_time: JWT_VERIFY_EMAIL_TOKEN_EXPIRATION_TIME
+
+database:
+  host: MONGO_HOST
+  port: MONGO_PORT
+  user: MONGO_USERNAME
+  password: MONGO_PASSWORD
+  database: MONGO_DATABASE
+  debug: MONGO_DEBUG
+  logging:
+    __name: MONGO_LOG
+    __format: json
+  extra:
+    __name: MONGO_EXTRA
+    __format: json
+
+redis:
+  host: REDIS_HOST
+  port: REDIS_PORT
+
+kafka:
+  brokers: KAFKA_BROKERS
+

@@ -1,0 +1,112 @@
+{
+  "apps": [
+    {
+      "name": "sota-dex-balance-history",
+      "script": "yarn",
+      "args": "console:dev account:daily-balance",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss"
+    },
+    {
+      "name": "sota-dex-be",
+      "script": "yarn",
+      "args": "run start:dev",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss"
+    },
+    {
+      "name": "sota-dex-index",
+      "script": "yarn",
+      "args": "console:dev start-get-index-price",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss"
+    },
+    {
+      "name": "sota-dex-matching-engine-notifier",
+      "script": "yarn",
+      "args": "console:dev matching-engine:notify",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss"
+    },
+    {
+      "name": "sota-dex-matching-engine-saver",
+      "script": "yarn",
+      "args": "console:dev matching-engine:save",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss"
+    },
+    {
+      "name": "sota-dex-orderbook",
+      "script": "yarn",
+      "args": "console:dev orderbook:publish",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss"
+    },
+    {
+      "name": "sota-dex-ticker-publisher",
+      "script": "yarn",
+      "args": "console:dev ticker:publish",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss"
+    },
+    {
+      "name": "sota-dex-transaction-crawler",
+      "script": "dist/console.js",
+      "args": "transaction:crawl-deposit",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss"
+    },
+    {
+      "name": "sota-dex-candle-sync-trades",
+      "script": "yarn",
+      "args": "console:dev candles:sync-trades",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss"
+    },
+    {
+      "name": "sota-dex-candle-sync-candles",
+      "script": "yarn",
+      "args": "console:dev candles:sync-candles",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss"
+    },
+    {
+      "name": "sota-dex-trade-picker",
+      "script": "dist/console.js",
+      "args": "dex:trade-picker"
+    },
+    {
+      "name": "sota-dex-trade-sender",
+      "script": "dist/console.js",
+      "args": "dex:trade-sender"
+    },
+    {
+      "name": "sota-dex-trade-verifier",
+      "script": "dist/console.js",
+      "args": "dex:trade-verifier"
+    },
+    {
+      "name": "sota-dex-trade-event-crawler",
+      "script": "dist/console.js",
+      "args": "dex:trade-event-crawler"
+    },
+    {
+      "name": "sota-dex-withdrawal-picker",
+      "script": "dist/console.js",
+      "args": "dex:withdrawal-picker"
+    },
+    {
+      "name": "sota-dex-withdrawal-sender",
+      "script": "dist/console.js",
+      "args": "dex:withdrawal-sender"
+    },
+    {
+      "name": "sota-dex-withdrawal-verifier",
+      "script": "dist/console.js",
+      "args": "dex:withdrawal-verifier"
+    },
+    {
+      "name": "sota-dex-withdrawal-event",
+      "script": "dist/console.js",
+      "args": "dex:withdrawal-event-crawler",
+      "env": {
+        "MONGO_LOG": true
+      }
+    },
+    {
+      "name": "sota-dex-trade-event-balance",
+      "script": "dist/console.js",
+      "args": "dex:trade-event-balance"
+    }
+  ]
+}
